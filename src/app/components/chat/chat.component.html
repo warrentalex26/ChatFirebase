@@ -1,0 +1,20 @@
+<h1>Chat</h1>
+<hr>
+<div class="app-mensajes" id="app-mensajes">
+  <div class="text-right">
+    <span class="badge badge-primary">Alex</span>
+    <p>Este es un mensaje de chat</p>
+  </div>
+  <div class="">
+    <span class="badge badge-success">Maria</span>
+    <p>Saludos Alex</p>
+  </div>git
+</div>
+
+<!--[(ngModel)]="mensaje" DEBEMOS DECLARAR la variable mensaje tambien en el TS e importar FormsModule en el app.module.ts-->
+<input class="form-control"
+       type="text"
+       name="mensaje"
+       [(ngModel)]="mensaje"
+       placeholder="Enviar mensaje"
+       (keyup.enter)="enviar_mensaje()">
