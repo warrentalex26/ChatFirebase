@@ -9,6 +9,7 @@ import { ChatService } from '../../providers/chat.service';
 export class ChatComponent implements OnInit {
 
   mensaje: string = '';
+
   // Nos cremos un 'elemento para que siempre este apuntando abajo cuando enviamos un mensaje, ocupamos el OnInit para cuando se cree el HTML
   elemento: any
   constructor(public chatService: ChatService) {
