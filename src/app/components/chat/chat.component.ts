@@ -9,13 +9,23 @@ import { ChatService } from '../../providers/chat.service';
 export class ChatComponent implements OnInit {
 
   mensaje: string = '';
-
+  // Nos cremos un 'elemento para que siempre este apuntando abajo cuando enviamos un mensaje, ocupamos el OnInit para cuando se cree el HTML
+  elemento: any
   constructor(public chatService: ChatService) {
     // Nos suscribimos y manejamos la logica en el servicio
-    this.chatService.cargarMensajes().subscribe();
+    this.chatService.cargarMensajes().subscribe( () => {
+      // Ponemos un timeout porque cuando recargamos la pagina aveces no funciona el scroll para poner el foco al final por la velocidad
+      // de carga de Angular
+      setTimeout( () => {
+        // Mueve el foco al final
+        this.elemento.scrollTop = this.elemento.scrollHeight;
+      }, 20);
+    });
   }
 
   ngOnInit() {
+    // hacemos referencia al elemento app-mensajes HTML
+    this.elemento = document.getElementById('app-mensajes');
   }
 
   enviar_mensaje(){

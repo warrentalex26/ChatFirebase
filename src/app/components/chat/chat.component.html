@@ -19,9 +19,11 @@
 <!--</div>-->
 
 <!--[(ngModel)]="mensaje" DEBEMOS DECLARAR la variable mensaje tambien en el TS e importar FormsModule en el app.module.ts-->
-<input class="form-control"
+</div>
+  <input class="form-control"
        type="text"
        name="mensaje"
        [(ngModel)]="mensaje"
        placeholder="Enviar mensaje"
        (keyup.enter)="enviar_mensaje()">
+
