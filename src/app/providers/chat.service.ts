@@ -14,15 +14,24 @@ export class ChatService {
 
   constructor(private afs: AngularFirestore) { }
 
-  cargarMensajes(){
+  cargarMensajes() {
     // Recibe un tipo any y el nodo del chat
-    this.itemsCollection = this.afs.collection<any>('chats');
+    // Mandamos un query a partir del ref para ordenar los chat en este caso por fecha y enviamos el desc para orderarlos descendentes
+    // Ocupamos limit para cargar los ultimos 5 mensajes porque no es viable si hay mas de 1000 mensajes
+    this.itemsCollection = this.afs.collection<any>('chats', ref => ref.orderBy('fecha', 'desc')
+      .limit(5));
     // Con esto estamos pendientes de lo que suceda en ese nodo en este caso 'chats'.
     // usamos map para trabajar con un observable y transformar y regresar algo en el cual nosotros nos suscribimos
     return this.itemsCollection.valueChanges().pipe(map( mensaje => {
       console.log(mensaje);
-      // Llenamos el grupo de chats que declaramos al inicio
-      this.chats = mensaje; // Ahora con el chats podemos trabaja en el HTML
+      // limpiamos los chats
+      this.chats = [];
+      //barremos los elementos del array
+      for (let msj of mensaje) {
+        // lo insertamos en la primera posicion siempre para ordenarlos
+        this.chats.unshift(msj);
+      }
+      // this.chats = mensaje; // Ahora con el chats podemos trabaja en el HTML
     }));
   }
 
