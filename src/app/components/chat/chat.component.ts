@@ -11,13 +11,8 @@ export class ChatComponent implements OnInit {
   mensaje: string = '';
 
   constructor(public chatService: ChatService) {
-    //Nos suscribimos
-    this.chatService.cargarMensajes()
-    //Recibimos un mensaje de tipo arreglo, para que lo maneje que es arreglo
-      .subscribe((mensaje:any[]) => {
-        //Vemos en pantalla el objeto que tenemos en firebase.
-        console.log(mensaje);
-      });
+    // Nos suscribimos y manejamos la logica en el servicio
+    this.chatService.cargarMensajes().subscribe();
   }
 
   ngOnInit() {
@@ -25,6 +20,17 @@ export class ChatComponent implements OnInit {
 
   enviar_mensaje(){
     console.log(this.mensaje);
+    // Antes de usar el funcion agregarMensaje debemos asegurarnos que haya un mensaje
+    if (this.mensaje.length === 0) { // No recibimos mensaje
+      return; // No se realiza ninguna accion
+    } else {
+      // Guardamos el mensaje, aca deberia de guardar los datos en firebase y mostrase en el HTML y la consola
+      this.chatService.agregarMensaje(this.mensaje)
+      // Opcional: avismos que se guardo el mensaje y borramos la caja de texto a vacio '' o que dio un error.
+        //
+          .then(() => this.mensaje = '')
+          .catch( () => console.error('Error al enviar el mensaje', err)); // el err es el error que maneja firebase
+    }
   }
 
 }

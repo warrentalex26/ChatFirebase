@@ -1,15 +1,22 @@
 <h1>Chat</h1>
 <hr>
 <div class="app-mensajes" id="app-mensajes">
-  <div class="text-right">
+<!--*ngfor de chat y ponemos chatService que es el nombre que esta inyectado en el constructor chat.component.ts-->
+  <!--Luego .chats que esta en nuestro servicio 'chat.service.ts'-->
+  <div class="text-right" *ngFor="let chat of chatService.chats">
     <span class="badge badge-primary">Alex</span>
-    <p>Este es un mensaje de chat</p>
+    <p>{{chat.mensaje}}</p>
   </div>
-  <div class="">
-    <span class="badge badge-success">Maria</span>
-    <p>Saludos Alex</p>
-  </div>
-</div>
+
+  <!--<div class="text-right">-->
+    <!--<span class="badge badge-primary">Alex</span>-->
+    <!--<p>Este es un mensaje de chat</p>-->
+  <!--</div>-->
+  <!--<div class="">-->
+    <!--<span class="badge badge-success">Maria</span>-->
+    <!--<p>Saludos Alex</p>-->
+  <!--</div>-->
+<!--</div>-->
 
 <!--[(ngModel)]="mensaje" DEBEMOS DECLARAR la variable mensaje tambien en el TS e importar FormsModule en el app.module.ts-->
 <input class="form-control"
