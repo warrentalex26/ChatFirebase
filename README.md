@@ -4,7 +4,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Notas
 
-- Proyecto de chat con firebase en tiempo
+- Proyecto de chat con firebase en tiempo real.
+- AnguarFire2
+- Se crea un servicio para controlar los mensajes del chat es decir su inserccion y como se cargan en pantalla, todo la logica debe de estar en los servicios no en el componente.
+
 
 ## Development server
 

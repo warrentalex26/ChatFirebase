@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { FormsModule } from '@angular/forms';
-
+//Servicios/Providers
+import { ChatService } from '../app/providers/chat.service';
 //Angular Fire 2
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
@@ -30,7 +31,9 @@ import { ChatComponent } from './components/chat/chat.component';
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     FormsModule
   ],
-  providers: [],
+  providers: [
+    ChatService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
