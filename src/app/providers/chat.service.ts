@@ -58,9 +58,10 @@ export class ChatService {
   agregarMensaje(texto :string) {
     // Necesitamos enviar el objeto a firebase para grabarlo, NOS FALTA EL UID DEL USUARIO
     let mensaje: Mensaje = {
-      nombre : 'demo',
+      nombre : this.usuario.nombre,
       mensaje: texto,
-      fecha: new Date().getTime()
+      fecha: new Date().getTime(),
+      uid: this.usuario.uid
     };
     // Guardamos la informacion en firebase
     return this.itemsCollection.add(mensaje);
@@ -71,6 +72,7 @@ export class ChatService {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
   logout() {
+    this.usuario = {};
     this.afAuth.auth.signOut();
   }
 

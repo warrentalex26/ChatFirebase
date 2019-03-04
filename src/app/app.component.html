@@ -6,10 +6,18 @@
 
 <div class="container main-container">
   <h1>FireChat</h1>
-  <app-login></app-login>
+  <!--Preguntamos si existe el UID del usuario muestre el div sino que lo oculte-->
+  <div class="col-md-12 text-right">
+    <button type="button" class="btn btn-outline-danger" (click)="chatService.logout()">
+      Salir
+    </button>
+  </div>
+
+    <!--Preguntamos sino existe el UID del usuario muestre el app-login sino que lo oculte-->
+    <app-login *ngIf="!chatService.uid"></app-login>
   <!---->
-  <!--<div class="chat-window">-->
-    <!--<app-chat></app-chat>-->
-  <!--</div>-->
+  <div class="chat-window" >
+    <app-chat></app-chat>
+  </div>
 
 </div>

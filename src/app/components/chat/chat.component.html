@@ -2,12 +2,11 @@
 <hr>
 <div class="app-mensajes" id="app-mensajes">
 <!--*ngfor de chat y ponemos chatService que es el nombre que esta inyectado en el constructor chat.component.ts-->
-  <!--Luego .chats que esta en nuestro servicio 'chat.service.ts'-->
-  <div class="text-right" *ngFor="let chat of chatService.chats">
-    <span class="badge badge-primary">Alex</span>
+  <!--Luego .chats que esta en nuestro servicio 'chat.service.ts'- agregamos la clase text right si el chatsrvice.uid = al chat -->
+  <div *ngFor="let chat of chatService.chats" [ngClass]="{'text-right': chatService.uid == chat.uid}">
+    <span class="badge" [ngClass]="{'badge-primary': chatService.uid == chat.uid, 'badge-success': chatService.uid !== chat.uid}">{{chat.nombre}}</span>
     <p>{{chat.mensaje}}</p>
   </div>
-
   <!--<div class="text-right">-->
     <!--<span class="badge badge-primary">Alex</span>-->
     <!--<p>Este es un mensaje de chat</p>-->
