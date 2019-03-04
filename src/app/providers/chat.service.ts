@@ -3,6 +3,10 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { Mensaje } from '../interface/mensaje.interface';
 import { map } from 'rxjs/operators';
+// Login
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
+
 
 @Injectable()
 // NOTA: UN SERVICIO SE EJECUTA EN EL MOMENTO QUE ES INYECTADO - IMPORTANTE POR ESO CREAMOS EL METODO CREARMENSAJE PARA OCUPARLO VARIAS VECES
@@ -11,8 +15,23 @@ export class ChatService {
   private itemsCollection: AngularFirestoreCollection<any>;
   // Lo trabajamos con arreglo
   public chats: any = [];
+  // Obtenemos la informacion de la autenticacion con esta variable
+  public usuario: any = {};
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore,
+              public afAuth: AngularFireAuth) {
+    // Nos suscribimos a un observable, de esta forma escuchamos cualquier cambio que suceda en el estado de la autenticacion
+    this.afAuth.authState.subscribe( user => {
+      //si es la primera vez puede ser nulo sino deberia de obtener informacion mas adelante
+      console.log('Estado del usuario: ',user);
+      if (!user) { // Sino existe el usuario que haga un return para que no reviente el condigo
+        return;
+      }
+      // Obtenemos las propiedades del usuario autenticado y las guardamos en nuestro objeto creado arriba usuario
+      this.usuario.nombre = user.displayName;
+      this.usuario.uid = user.uid;
+    });
+  }
 
   cargarMensajes() {
     // Recibe un tipo any y el nodo del chat
@@ -46,6 +65,13 @@ export class ChatService {
     // Guardamos la informacion en firebase
     return this.itemsCollection.add(mensaje);
 
+  }
+
+  login(proveedor:string) {
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+  }
+  logout() {
+    this.afAuth.auth.signOut();
   }
 
 }

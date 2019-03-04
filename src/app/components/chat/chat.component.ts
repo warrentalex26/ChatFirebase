@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit {
       // Opcional: avismos que se guardo el mensaje y borramos la caja de texto a vacio '' o que dio un error.
         //
           .then(() => this.mensaje = '')
-          .catch( () => console.error('Error al enviar el mensaje', err)); // el err es el error que maneja firebase
+          .catch( () => console.error('Error al enviar el mensaje')); // OPCIONAL el err es el error que maneja firebase
     }
   }
 
